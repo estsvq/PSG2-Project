@@ -12,7 +12,7 @@
         <artifactId>spring-petclinic.psg2.2021-G2-23</artifactId>
         <version>1.0.0</version>
     </parent>
-    <name>PSG2-2021-G2-23 Petclinic</name>
+    <name>PSG2-2021-G2-23 Petclini</name>
 
     <properties>
 
