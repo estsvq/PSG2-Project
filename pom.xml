@@ -3,16 +3,29 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.samples</groupId>
-    <artifactId>spring-petclinic</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <groupId> es.us.psg2</groupId>
+    <artifactId>spring-petclinic.psg2.2021-G2-23</artifactId>
+    <version>1.0.0</version>
 
     <parent>
-        <groupId>es.us.psg2</groupId>
-        <artifactId>spring-petclinic.psg2.2021-G2-23</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
     </parent>
     <name>PSG2-2021-G2-23 Petclinic</name>
+
+
+    <developers> 
+        <developer>
+            <id>pabgonmon2</id>
+            <name>Pablo González Moncalvillo</name>
+            <email>pablogonmon@gmail.com</email>
+            <organization>PSG2-2021-G2-23</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
 
