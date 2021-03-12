@@ -28,7 +28,16 @@
         <developer>
             <id>mangralop</id>
             <name>Manuel Jesús Granados López</name>
-            <email>mjgranados@gmail.com</email>
+            <email>mjgranados@gmail.com</email>            
+            <organization>PSG2-2021-G2-23</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>jacgarvel</id>
+            <name>Jacobo Garcia Velasco</name>
+            <email>jacobo.estudiante16@gmail.com</email>
             <organization>PSG2-2021-G2-23</organization>
             <roles>
                 <role>developer</role>
