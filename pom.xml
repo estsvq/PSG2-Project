@@ -52,6 +52,16 @@
                 <role>developer</role>
             </roles>
         </developer>
+        <developer>
+            <id>laur2000</id>
+            <name>George Laurentiu Bogdan</name>
+            <email>bogdan.lorenzo11@gmail.com</email>
+            <organization>PSG2-2021-G2-23</organization>
+            <roles>
+                <role>scrum master</role>
+                <role>developer</role>
+            </roles>
+        </developer>
     </developers>
 
     <properties>
