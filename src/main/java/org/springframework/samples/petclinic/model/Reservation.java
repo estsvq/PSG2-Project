@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,7 +21,7 @@ public class Reservation extends BaseEntity{
     private Pet pet;
 
     @Column(name = "start_date")
-    @Future
+    @FutureOrPresent
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate startDate;
 
