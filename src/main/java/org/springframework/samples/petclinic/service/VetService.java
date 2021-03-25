@@ -54,6 +54,16 @@ public class VetService {
 	@Transactional(readOnly = true)	
 	public Collection<Vet> findVets() throws DataAccessException {
 		return vetRepository.findAll();
-	}	
+	}
+
+	@Transactional
+	public Vet findVetById(int vetId){
+		return vetRepository.findById(vetId).get();
+	}
+	
+	@Transactional
+	public void deleteVet(Vet vet) throws DataAccessException{
+		vetRepository.delete(vet);
+	}
 
 }

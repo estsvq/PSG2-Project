@@ -16,12 +16,15 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
@@ -37,10 +40,12 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class PetService {
-
+	@Autowired
 	private PetRepository petRepository;
-	
+	@Autowired
 	private VisitRepository visitRepository;
+	@Autowired
+	private OwnerRepository ownerRepository;
 	
 
 	@Autowired
@@ -74,9 +79,20 @@ public class PetService {
                 petRepository.save(pet);                
 	}
 
-
+	@Transactional
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
+	}
+	
+	@Transactional
+	public void deletePet(Pet pet) throws DataAccessException{
+		List<Pet> petList = pet.getOwner().getPets();
+		for(Pet p: petList){
+			if(p.equals(pet)){
+				p.setOwner(null);
+			} 
+		}
+		petRepository.delete(pet);
 	}
 
 }
