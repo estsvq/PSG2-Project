@@ -34,6 +34,11 @@
     <table class="table-buttons">
         <tr>
             <td>
+            <sec:authorize access="hasAuthority('admin')">
+		        <a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>Add Vet</a>
+	        </sec:authorize>
+            </td>
+            <td>
                 <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>
             </td>            
         </tr>

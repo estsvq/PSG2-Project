@@ -50,10 +50,21 @@ public class VetService {
 	public VetService(VetRepository vetRepository) {
 		this.vetRepository = vetRepository;
 	}		
-
+	
 	@Transactional(readOnly = true)	
 	public Collection<Vet> findVets() throws DataAccessException {
 		return vetRepository.findAll();
-	}	
+	}
+
+	@Transactional(readOnly = true)
+	public Vet findVetById(int id) throws DataAccessException {
+		return vetRepository.findById(id);
+	}
+
+	@Transactional
+	public void saveVet(Vet vet) throws DataAccessException {
+		//creating vet
+		vetRepository.save(vet);
+	}		
 
 }
