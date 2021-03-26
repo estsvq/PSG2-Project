@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import javax.validation.Valid;
 
 /**
@@ -47,9 +54,15 @@ public class VetController {
 		this.vetService = clinicService;
 	}
 
+	@ModelAttribute("specialties")
+	public Collection<Specialty> populateSpecialties() {
+		return this.vetService.findSpecialties();		
+	}
+
 	@GetMapping(value = { "/vets" })
 	public String showVetList(Map<String, Object> model) {
-		// Here we are returning an object of type 'Vets' rather than a collection of Vet
+		// Here we are returning an object of type 'Vets' rather than a collection of
+		// Vet
 		// objects
 		// so it is simpler for Object-Xml mapping
 		Vets vets = new Vets();
@@ -58,9 +71,10 @@ public class VetController {
 		return "vets/vetList";
 	}
 
-	@GetMapping(value = { "/vets.xml"})
+	@GetMapping(value = { "/vets.xml" })
 	public @ResponseBody Vets showResourcesVetList() {
-		// Here we are returning an object of type 'Vets' rather than a collection of Vet
+		// Here we are returning an object of type 'Vets' rather than a collection of
+		// Vet
 		// objects
 		// so it is simpler for JSon/Object mapping
 		Vets vets = new Vets();
@@ -79,31 +93,33 @@ public class VetController {
 	public String processCreationForm(@Valid Vet vet, BindingResult result) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			this.vetService.saveVet(vet);
-			
-			return "redirect:/vets/" + vet.getId();
+			return "redirect:/vets";
 		}
 	}
 
 	@GetMapping(value = "/vets/{vetId}/edit")
 	public String initUpdateVetForm(@PathVariable("VetId") int vetId, Model model) {
-		Vet vet = this.vetService.findVetById(vetId);
-		model.addAttribute(vet);
-		return VIEWS_VET_CREATE_OR_UPDATE_FORM;
+		Optional<Vet> vet = this.vetService.findVetById(vetId);
+
+		if (vet.isPresent()) {
+			model.addAttribute(vet.get());
+			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
+		} else {
+			return "redirect:/vets";
+		}
+
 	}
 
 	@PostMapping(value = "/vets/{vetId}/edit")
-	public String processUpdateVetForm(@Valid Vet vet, BindingResult result,
-			@PathVariable("vetId") int vetId) {
+	public String processUpdateVetForm(@Valid Vet vet, BindingResult result, @PathVariable("vetId") int vetId) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			vet.setId(vetId);
 			this.vetService.saveVet(vet);
-			return "redirect:/vets/{vetId}";
+			return "redirect:/vets";
 		}
 	}
 
