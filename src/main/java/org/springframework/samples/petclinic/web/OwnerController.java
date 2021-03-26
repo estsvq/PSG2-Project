@@ -148,9 +148,6 @@ public class OwnerController {
 		if(owner != null){
 			ownerService.deleteOwner(owner);
 			vista = "redirect:/owners";
-		}else{
-			vista = "owners/ownerDetails";
-
 		}
 		return vista;		
 	}

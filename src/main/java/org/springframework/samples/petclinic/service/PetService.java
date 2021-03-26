@@ -86,13 +86,10 @@ public class PetService {
 	
 	@Transactional
 	public void deletePet(Pet pet) throws DataAccessException{
-		List<Pet> petList = pet.getOwner().getPets();
-		for(Pet p: petList){
-			if(p.equals(pet)){
-				p.setOwner(null);
-			} 
+		Owner owner = pet.getOwner();
+		if(owner.removePet(pet)){
+			petRepository.delete(pet);
 		}
-		petRepository.delete(pet);
 	}
 
 }
