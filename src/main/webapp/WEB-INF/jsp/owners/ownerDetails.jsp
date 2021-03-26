@@ -33,6 +33,11 @@
     </spring:url>
     <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit Owner</a>
 
+    <spring:url value="{ownerId}/delete" var="delUrl">
+        <spring:param name="ownerId" value="${owner.id}"/>
+    </spring:url>
+    <a href="${fn:escapeXml(delUrl)}" class="btn btn-default">Delete Owner</a>
+
     <spring:url value="{ownerId}/pets/new" var="addUrl">
         <spring:param name="ownerId" value="${owner.id}"/>
     </spring:url>
@@ -55,6 +60,13 @@
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt>Type</dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
+                        <dd>
+                            <spring:url value="/owners/{ownerId}/pets/{petId}/delete" var="delUrl">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(delUrl)}" class="btn btn-default">Delete Pet</a>
+                        </dd>
                     </dl>
                 </td>
                 <td valign="top">
@@ -63,6 +75,7 @@
                         <tr>
                             <th>Visit Date</th>
                             <th>Description</th>
+                            
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
@@ -86,6 +99,7 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                             </td>
+                            
                         </tr>
                     </table>
                 </td>

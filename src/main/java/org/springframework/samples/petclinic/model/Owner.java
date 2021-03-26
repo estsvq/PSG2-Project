@@ -108,7 +108,7 @@ public class Owner extends Person {
 		return this.pets;
 	}
 
-	protected void setPetsInternal(Set<Pet> pets) {
+	public void setPetsInternal(Set<Pet> pets) {
 		this.pets = pets;
 	}
 
