@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 
@@ -41,6 +42,13 @@ public class ReservationService {
     @Transactional
     public void deleteReservation(Reservation entity) {
         resRepository.delete(entity);
+    }
+
+
+    public Reservation creaNuevaReserva(Reservation res){
+        res.setStartDate(LocalDate.now());
+        res.setFinnishDate(LocalDate.now().plusDays(1));
+        return res;
     }
 
     

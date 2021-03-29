@@ -60,12 +60,8 @@ public class PetFormatter implements Formatter<Pet> {
 
 	@Override
 	public Pet parse(String text, Locale locale) throws ParseException {
-		Collection<Pet> findPets = this.petService.findAllPets();
-		for (Pet pet : findPets) {
-			if (pet.getName().equals(text)) {
-				return pet;
-			}
-		}
+		Pet pet = petService.findPetByName(text);
+		if(pet != null) return pet;
 		throw new ParseException("type not found: " + text, 0);
 	}
 
