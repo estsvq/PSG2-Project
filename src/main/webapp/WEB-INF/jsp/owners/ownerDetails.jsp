@@ -43,16 +43,22 @@
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Pet</a>
 
+    <spring:url value="{ownerId}/reservations/new" var="addUrl">
+        <spring:param name="ownerId" value="${owner.id}"/>
+    </spring:url>
+    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Add New Reservation</a>
+
     <br/>
     <br/>
     <br/>
-    <h2>Pets and Visits</h2>
+    <h2>Pets, Visits and Reservations</h2>
 
     <table class="table table-striped">
         <c:forEach var="pet" items="${owner.pets}">
 
             <tr>
                 <td valign="top">
+                <h3>Pet</h3>
                     <dl class="dl-horizontal">
                         <dt>Name</dt>
                         <dd><c:out value="${pet.name}"/></dd>
@@ -70,6 +76,7 @@
                     </dl>
                 </td>
                 <td valign="top">
+                <h3>Visits</h3>
                     <table class="table-condensed">
                         <thead>
                         <tr>
@@ -101,6 +108,24 @@
                             </td>
                             
                         </tr>
+                    </table>
+                </td>
+                <td valign="top">
+                <h3>Reservations</h3>
+                    <table class="table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Start Date</th>
+                            <th>Finnish Date</th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="reservation" items="${pet.reservations}">
+                            <tr>
+                                <td><petclinic:localDate date="${reservation.startDate}" pattern="yyyy-MM-dd"/></td>
+                                <td><petclinic:localDate date="${reservation.finnishDate}" pattern="yyyy-MM-dd"/></td>
+                            </tr>
+                        </c:forEach>
+                        
                     </table>
                 </td>
             </tr>

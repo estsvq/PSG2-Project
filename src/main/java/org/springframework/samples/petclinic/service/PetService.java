@@ -70,6 +70,11 @@ public class PetService {
 		return petRepository.findById(id);
 	}
 
+	@Transactional(readOnly = true)
+	public Pet findPetByName(String name) throws DataAccessException {
+		return petRepository.findByName(name);
+	}
+
 	@Transactional(rollbackFor = DuplicatedPetNameException.class)
 	public void savePet(Pet pet) throws DataAccessException, DuplicatedPetNameException {
 			Pet otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
@@ -92,4 +97,7 @@ public class PetService {
 		}
 	}
 
+	public Collection<Pet> findAllPets(){
+		return petRepository.findAll();
+	}
 }
