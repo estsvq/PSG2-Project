@@ -6,14 +6,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <petclinic:layout pageName="vets">
-    <h2>Veterinarians</h2>
+    <h2><spring:message code="vets" /></h2>
 
     <table id="vetsTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Specialties</th>
-            <th>Delete</th>
+            <th><spring:message code="name" /></th>
+            <th><spring:message code="specialties" /></th>
+            <th><spring:message code="actions" /></th>
         </tr>
         </thead>
         <tbody>
@@ -24,15 +24,15 @@
                 </td>
                 <td>
                     <c:forEach var="specialty" items="${vet.specialties}">
-                        <c:out value="${specialty.name} "/>
+                        <spring:message code="${specialty.name}" />
                     </c:forEach>
-                    <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
+                    <c:if test="${vet.nrOfSpecialties == 0}"><spring:message code="none" /></c:if>
                 </td>
                 <td>
                     <spring:url value = "/vets/{vetId}/delete" var="vetUrl">
                         <spring:param name="vetId" value="${vet.id}"/>
                     </spring:url>
-                    <a href="${fn:escapeXml(vetUrl)}" class="btn btn-default">Delete</a>
+                    <a href="${fn:escapeXml(vetUrl)}" class="btn btn-default"><spring:message code="delete" /></a>
                 </td>
             </tr>
         </c:forEach>
@@ -42,7 +42,7 @@
     <table class="table-buttons">
         <tr>
             <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>
+                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><spring:message code="view_xml" /></a>
             </td>            
         </tr>
     </table>
