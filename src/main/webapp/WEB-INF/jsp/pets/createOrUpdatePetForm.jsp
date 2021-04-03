@@ -32,7 +32,7 @@
                 <petclinic:inputField label="${birthdateLabel}" name="birthDate"/>
                 <div class="control-group">
                     <spring:message code="type" var="typeLabel"/>
-                    <petclinic:selectField name="type" label="${typeLabel} " names="${types}" size="5"/>
+                    <petclinic:selectField name="type" label="${typeLabel} " names="${types}" size="5" itemLabel="name" itemValue="name"/>
                 </div>
             </div>
             <div class="form-group">
