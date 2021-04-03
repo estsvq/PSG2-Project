@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     <c:forEach var="specialty" items="${vet.specialties}">
-                        <spring:message code="${specialty.name}" />
+                        <spring:message code="${specialty.name}" />&nbsp;
                     </c:forEach>
                     <c:if test="${vet.nrOfSpecialties == 0}"><spring:message code="none" /></c:if>
                 </td>

@@ -6,26 +6,26 @@
 
 <petclinic:layout pageName="vets">
 
-    <h2>Veterinarian Information</h2>
+    <h2><spring:message code="vet_info" /></h2>
 
 
     <table class="table table-striped">
         <tr>
-            <th>Name</th>
+            <th><spring:message code="name" /></th>
             <td><b><c:out value="${vet.firstName} ${vet.lastName}"/></b></td>
         </tr>
         <tr>
-            <th>Specialty</th>
+            <th><spring:message code="specialties" /></th>
             <td><c:forEach var="specialty" items="${vet.specialties}">
-                <c:out value="${specialty.name}"/><br>
+                <spring:message code="${specialty.name}" />&nbsp;
             </c:forEach>
-            <c:if test="${vet.nrOfSpecialties == 0}">none</c:if></td>
+            <c:if test="${vet.nrOfSpecialties == 0}"><spring:message code="none" /></c:if></td>
         </tr>
     </table>
 
     <spring:url value="{vetId}/edit" var="editUrl">
         <spring:param name="vetId" value="${vet.id}"/>
     </spring:url>
-    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit Vet</a>
+    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default"><spring:message code="update_vet" /></a>
 
 </petclinic:layout>
