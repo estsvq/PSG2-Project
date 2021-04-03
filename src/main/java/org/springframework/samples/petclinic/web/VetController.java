@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -100,16 +101,10 @@ public class VetController {
 	}
 
 	@GetMapping(value = "/vets/{vetId}/edit")
-	public String initUpdateVetForm(@PathVariable("VetId") int vetId, Model model) {
-		Optional<Vet> vet = this.vetService.findVetById(vetId);
-
-		if (vet.isPresent()) {
-			model.addAttribute(vet.get());
-			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
-		} else {
-			return "redirect:/vets";
-		}
-
+	public String initUpdateVetForm(@PathVariable("vetId") int vetId, Model model) {
+		Vet vet = this.vetService.findVetById(vetId);
+		model.addAttribute(vet);
+		return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 	}
 
 	@PostMapping(value = "/vets/{vetId}/edit")
@@ -121,6 +116,18 @@ public class VetController {
 			this.vetService.saveVet(vet);
 			return "redirect:/vets";
 		}
+	}
+
+	/**
+	 * Custom handler for displaying an owner.
+	 * @param vetId the ID of the vet to display
+	 * @return a ModelMap with the model attributes for the view
+	 */
+	@GetMapping("/vets/{vetId}")
+	public ModelAndView showVet(@PathVariable("vetId") int vetId) {
+		ModelAndView mav = new ModelAndView("vets/vetDetails");
+		mav.addObject(this.vetService.findVetById(vetId));
+		return mav;
 	}
 
 }

@@ -46,4 +46,14 @@ public interface VetRepository extends CrudRepository<Vet, Integer>{
 	 */
 	@Query("SELECT specialty FROM Specialty specialty ORDER BY specialty.name")
 	List<Specialty> findSpecialties() throws DataAccessException;
+
+
+	/**
+	 * Retrieve an <code>Vet</code> from the data store by id.
+	 * @param id the id to search for
+	 * @return the <code>Vet</code> if found
+	 * @throws org.springframework.dao.DataRetrievalFailureException if not found
+	 */	
+	@Query("SELECT vet FROM Vet vet WHERE vet.id =:id")
+	public Vet findById(@Param("id") int id);
 }
