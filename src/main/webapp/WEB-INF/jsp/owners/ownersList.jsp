@@ -5,13 +5,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<!--  Change the background color of the table header when looking for owners to light grey #7 -->
+<!--  Change the background color of the table header when looking for owners to light grey #7 
 <style>
 #ownersTable > thead > tr > th
 {
 	background-color: #C0C0C0;
 }
 </style>
+-->
 
 <petclinic:layout pageName="owners">
     <h2>Owners</h2>

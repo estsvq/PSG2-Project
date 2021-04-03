@@ -15,10 +15,12 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Pet;
@@ -30,7 +32,7 @@ import org.springframework.samples.petclinic.model.PetType;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface PetRepository extends Repository<Pet, Integer> {
+public interface PetRepository extends CrudRepository<Pet, Integer> {
 
 	/**
 	 * Retrieve all <code>PetType</code>s from the data store.
@@ -47,11 +49,10 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	 */
 	Pet findById(int id) throws DataAccessException;
 
-	/**
-	 * Save a <code>Pet</code> to the data store, either inserting or updating it.
-	 * @param pet the <code>Pet</code> to save
-	 * @see BaseEntity#isNew
-	 */
-	void save(Pet pet) throws DataAccessException;
 
+
+
+	Pet findByName(String name) throws DataAccessException;
+
+	Collection<Pet> findAll();
 }

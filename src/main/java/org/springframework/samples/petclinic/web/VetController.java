@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -25,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -128,6 +130,15 @@ public class VetController {
 		ModelAndView mav = new ModelAndView("vets/vetDetails");
 		mav.addObject(this.vetService.findVetById(vetId));
 		return mav;
+  }
+  
+  @GetMapping("/vets/{vetId}/delete")
+	public String deleteVet(@PathVariable("vetId") int vetId){
+		Vet vet = vetService.findVetById(vetId);
+		if(vet != null){
+			vetService.deleteVet(vet);
+		}
+		return "redirect:/vets";
 	}
 
 }

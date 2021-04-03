@@ -61,7 +61,7 @@ public class VetService {
 		Iterable<Vet> it = vetRepository.findAll();
 		return StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
 
-	}
+  }
 
 	@Transactional(readOnly = true)
 	public Vet findVetById(int id) throws DataAccessException {
@@ -76,6 +76,12 @@ public class VetService {
 
 	public Collection<Specialty> findSpecialties() {
 		return vetRepository.findSpecialties();
+	}
+
+	
+	@Transactional
+	public void deleteVet(Vet vet) throws DataAccessException{
+		vetRepository.delete(vet);
 	}
 
 }
