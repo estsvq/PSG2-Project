@@ -24,7 +24,30 @@
         <label class="col-sm-2 control-label">${label}</label>
 
         <div class="col-sm-10">
-            <form:select class="form-control" path="${name}" items="${names}" size="${size}" multiple="${multiple}" itemLabel="${itemLabel}" itemValue="${itemValue}"/>
+            <c:choose>
+                <c:when test="${itemLabel == null || itemLabel.equals('')}">
+                    <c:choose>
+                        <c:when test="${itemValue == null || itemValue.equals('')}">
+                            <form:select class="form-control" path="${name}" items="${names}" size="${size}" multiple="${multiple}" />
+                        </c:when>
+                        <c:otherwise>
+                            <form:select class="form-control" path="${name}" items="${names}" size="${size}" multiple="${multiple}"  itemValue="${itemValue}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    
+                </c:when>
+                <c:otherwise>
+                 <c:choose>
+                        <c:when test="${itemValue == null || itemValue.equals('')}">
+                            <form:select class="form-control" path="${name}" items="${names}" size="${size}" multiple="${multiple}" itemLabel="${itemLabel}" />
+                        </c:when>
+                        <c:otherwise>
+                            <form:select class="form-control" path="${name}" items="${names}" size="${size}" multiple="${multiple}" itemLabel="${itemLabel}" itemValue="${itemValue}"/>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+            
             <c:if test="${valid}">
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
             </c:if>
