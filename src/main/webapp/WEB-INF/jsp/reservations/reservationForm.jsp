@@ -17,19 +17,22 @@
     </jsp:attribute>
     <jsp:body>
         <h1>
-            Book a room for your pet!
+            <spring:message code="book_room_pet" />
         </h1>
         <form:form modelAttribute="reservation" class="form-horizontal" id="add-owner-form">
             <div class="form-group has-feedback">
                 <div class="control-group">
-                    <petclinic:selectField label="Pet" name="pet" size="1" names="${userPets}"/>
+                    <spring:message code="pet" var="petLabel" />
+                    <petclinic:selectField label="${petLabel}" name="pet" size="1" names="${userPets}"/>
                 </div>
-                <petclinic:inputField label="Start date" name="startDate"/>
-                <petclinic:inputField label="Finnish date" name="finnishDate"/>
+                <spring:message code="start_date" var="startDateLabel" />
+                <petclinic:inputField label="${startDateLabel}" name="startDate"/>
+                <spring:message code="end_date" var="endDateLabel" />
+                <petclinic:inputField label="${endDateLabel}" name="finnishDate"/>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-default" type="submit">Ask for reservation</button>
+                    <button class="btn btn-default" type="submit"><spring:message code="ask_reservation" /></button>
                 </div>
             </div>
         </form:form>
