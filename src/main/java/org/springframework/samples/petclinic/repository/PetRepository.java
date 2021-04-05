@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -50,4 +51,8 @@ public interface PetRepository extends CrudRepository<Pet, Integer> {
 
 
 
+
+	Pet findByName(String name) throws DataAccessException;
+
+	Collection<Pet> findAll();
 }

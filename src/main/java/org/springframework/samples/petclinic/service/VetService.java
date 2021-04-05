@@ -15,7 +15,12 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,6 +28,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
@@ -45,21 +51,33 @@ public class VetService {
 
 	private VetRepository vetRepository;
 
-
 	@Autowired
 	public VetService(VetRepository vetRepository) {
 		this.vetRepository = vetRepository;
-	}		
+	}
 
-	@Transactional(readOnly = true)	
+	@Transactional(readOnly = true)
 	public Collection<Vet> findVets() throws DataAccessException {
-		return vetRepository.findAll();
+		Iterable<Vet> it = vetRepository.findAll();
+		return StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
+
+  }
+
+	@Transactional(readOnly = true)
+	public Vet findVetById(int id) throws DataAccessException {
+		return vetRepository.findById(id);
 	}
 
 	@Transactional
-	public Vet findVetById(int vetId){
-		return vetRepository.findById(vetId).get();
+	public void saveVet(Vet vet) throws DataAccessException {
+		// creating vet
+		vetRepository.save(vet);
 	}
+
+	public Collection<Specialty> findSpecialties() {
+		return vetRepository.findSpecialties();
+	}
+
 	
 	@Transactional
 	public void deleteVet(Vet vet) throws DataAccessException{
