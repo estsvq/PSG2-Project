@@ -21,7 +21,6 @@
             <petclinic:inputField label="${budgetTargetLabel}" name="budgetTarget"/>
             <spring:message code="act_non_prof_org" var="actNonProfOrgLabel"/>
             <petclinic:inputField label="${actNonProfOrgLabel}" name="actNonProfOrg"/>
-
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

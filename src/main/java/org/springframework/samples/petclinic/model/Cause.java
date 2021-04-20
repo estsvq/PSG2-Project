@@ -30,7 +30,8 @@ public class Cause {
 	private Boolean isOpen;
 	
 	public Cause() {
-		this.isOpen = true;
+		super();
+		this.setIsOpen(true);
 	}
 
 	public String getName() {
