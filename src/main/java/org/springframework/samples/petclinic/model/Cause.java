@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -19,6 +20,7 @@ public class Cause {
 	private String description;
 	
 	@Column(name = "budget_target")	
+	@Min(value =  0)
 	private Double budgetTarget;
 	
 	@Column(name = "act_non_prof_org")	
@@ -26,6 +28,10 @@ public class Cause {
 	
 	@Column(name = "is_open")	
 	private Boolean isOpen;
+	
+	public Cause() {
+		this.isOpen = true;
+	}
 
 	public String getName() {
 		return name;

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,11 @@ public class CauseController {
 
 	private static final String VIEWS_CAUSE_CREATE_FORM = "causes/createCausesForm";
 	
-	private final CauseService causeService = new CauseService();
+	CauseService causeService;
+
+	@Autowired public CauseController(CauseService causeService) {
+		this.causeService = causeService;
+	}
 	
 	
 	@GetMapping(value = "/causes/new")	
@@ -27,7 +32,8 @@ public class CauseController {
 	}
 	
 	@PostMapping(value = "/causes/new")
-	public String processCreationForm(@Valid Cause cause, BindingResult result) {
+	public String processCreationForm(Cause cause, BindingResult result) {
+		System.out.println(cause);
 		if (result.hasErrors()) {
 			return VIEWS_CAUSE_CREATE_FORM;
 		}
