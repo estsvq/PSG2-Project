@@ -25,7 +25,7 @@ public class Cause {
 	private String actNonProfOrg;
 	
 	@Column(name = "is_open")	
-	private Boolean isOpen;
+	private Boolean isOpen = true;
 
 	public String getName() {
 		return name;
@@ -60,7 +60,7 @@ public class Cause {
 	}
 
 	public Boolean getIsOpen() {
-		return isOpen;
+		return true;
 	}
 
 	public void setIsOpen(Boolean isOpen) {
