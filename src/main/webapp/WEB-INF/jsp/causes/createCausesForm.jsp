@@ -8,20 +8,26 @@
 
 <petclinic:layout pageName="causes">
     <h2>
-               <c:if test="${cause['new']}"><spring:message code="new" />&nbsp;</c:if> <spring:message code="cause" />
+               <spring:message code="new" />&nbsp; <spring:message code="cause" />
     </h2>
     <form:form modelAttribute="cause" class="form-horizontal" id="add-cause-form">
         <div class="form-group has-feedback">
 
             <spring:message code="name" var="nameLabel"/>
             <petclinic:inputField label="${nameLabel}" name="name"/>
+            <spring:message code="description" var="descriptionLabel"/>
+            <petclinic:inputField label="${descriptionLabel}" name="description"/>
+            <spring:message code="budget_target" var="budgetTargetLabel"/>
+            <petclinic:inputField label="${budgetTargetLabel}" name="budgetTarget"/>
+            <spring:message code="act_non_prof_org" var="actNonProfOrgLabel"/>
+            <petclinic:inputField label="${actNonProfOrgLabel}" name="actNonProfOrg"/>
+            <spring:message code="is_open" var="isOpenLabel"/>
+            <petclinic:inputField label="${isOpenLabel}" name="isOpen"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
 
-                    <c:if test="${cause['new']}">
                         <button class="btn btn-default" type="submit"><spring:message code="add_cause" /></button>
-                    </c:if>
 
             </div>
         </div>

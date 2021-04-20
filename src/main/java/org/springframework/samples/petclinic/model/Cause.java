@@ -66,6 +66,14 @@ public class Cause {
 	public void setIsOpen(Boolean isOpen) {
 		this.isOpen = isOpen;
 	}
+
+	@Override
+	public String toString() {
+		return "Cause [name=" + name + ", description=" + description + ", budgetTarget=" + budgetTarget
+				+ ", actNonProfOrg=" + actNonProfOrg + ", isOpen=" + isOpen + "]";
+	}
+	
+
 	
 	
 	
