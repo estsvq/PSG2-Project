@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +53,11 @@ public class CauseController {
 		// return VIEWS_CAUSE_CREATE_FORM;
 	}
 	*/
+	@GetMapping(value = "/causes")
+	public String listAllCauses(ModelMap model){
+		Iterable<Cause> causes = causeService.findAll();
+		model.addAttribute("causes", causes);
+		return "causes/causesList";
+	}
 	
 }

@@ -9,11 +9,10 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "causes")
-public class Cause {
+public class Cause extends BaseEntity{
 
 	@Column(name = "name")
 	@NotEmpty
-	@Id
 	private String name;
 	
 	@Column(name = "description")
