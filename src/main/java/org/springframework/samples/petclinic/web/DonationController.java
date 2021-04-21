@@ -5,13 +5,15 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
-import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.samples.petclinic.service.DonationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,33 +23,32 @@ public class DonationController {
     private static final String VIEWS_CREATE_DONATION = "donations/donationForm";
     
     private final DonationService donationService;
-    // private final CauseService causeService;
+    private final CauseService causeService;
 
     @Autowired
-    public DonationController(DonationService donationService/*, CauseService causeService*/ ){
+    public DonationController(DonationService donationService, CauseService causeService){
         this.donationService = donationService;
-        // this.causeService = causeService;
+        this.causeService = causeService;
 
     }
 
-    // @ModelAttribute("cause")
-	// public Cause findCause(@PathVariable("causeId") int causeId) {
-	// 	return this.causeService.findCauseById(causeId);
-	// }
+    @ModelAttribute("cause")
+	public Cause findCause(@PathVariable("causeId") Integer causeId) {
+		return this.causeService.findById(causeId);
+	}
 
 
     @GetMapping("/new")
-    public String newDonation(/*Cause cause,*/Map<String, Object> model){
-
-        // Donation donation = donationService.createDonation(cause);
-        model.put("donation", new Donation());
+    public String newDonation(Cause cause, Map<String, Object> model){
+        Donation donation = donationService.createDonation(cause);
+        model.put("donation", donation);
         return VIEWS_CREATE_DONATION;
     }
 
-    @GetMapping("/new")
-    public String saveDonation(/*Cause cause,*/@Valid Donation donation, BindingResult result,  Map<String, Object> model){
+    @GetMapping("/save")
+    public String saveDonation(Cause cause, Donation donation, BindingResult result,  Map<String, Object> model){
         if(result.hasErrors()){
-            // Donation donation = donationService.createDonation(cause);
+            donation = donationService.createDonation(cause);
             model.put("donation", new Donation());
             return VIEWS_CREATE_DONATION;
         }else{

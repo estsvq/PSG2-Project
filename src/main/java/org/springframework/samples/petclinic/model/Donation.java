@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name ="donations")
-public class Donation {
+public class Donation extends BaseEntity{
     
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate date;
@@ -24,9 +24,9 @@ public class Donation {
     @JoinColumn(name = "username")
     private User client;
 
-    // @ManyToOne
-    // @JoinColumn(name = "cause_id")
-    // private Cause cause;
+    @ManyToOne
+    @JoinColumn(name = "name")
+    private Cause cause;
 
     public LocalDate getDate() {
         return date;
@@ -52,13 +52,13 @@ public class Donation {
         this.client = client;
     }
 
-    // public Cause getCause() {
-    //     return cause;
-    // }
+    public Cause getCause() {
+        return cause;
+    }
 
-    // public void setCause(Cause cause) {
-    //     this.cause = cause;
-    // }
+    public void setCause(Cause cause) {
+        this.cause = cause;
+    }
 
     
 }

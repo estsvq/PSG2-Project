@@ -2,18 +2,16 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "causes")
-public class Cause {
+public class Cause extends BaseEntity{
 
 	@Column(name = "name")
 	@NotEmpty
-	@Id
 	private String name;
 	
 	@Column(name = "description")
