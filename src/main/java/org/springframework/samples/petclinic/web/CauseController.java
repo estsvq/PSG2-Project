@@ -42,7 +42,7 @@ public class CauseController {
 		else {
 			//creating cause
 			this.causeService.saveCause(cause);			
-			return "welcome";
+			return "redirect:/causes";
 		}
 	}
 	
@@ -54,9 +54,9 @@ public class CauseController {
 	}
 	*/
 	@GetMapping(value = "/causes")
-	public String listAllCauses(ModelMap model){
+	public String listAllCauses(Map<String, Iterable<Cause>> model){
 		Iterable<Cause> causes = causeService.findAll();
-		model.addAttribute("causes", causes);
+		model.put("causes", causes);
 		return "causes/causesList";
 	}
 	
