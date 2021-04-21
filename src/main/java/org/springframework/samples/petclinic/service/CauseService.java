@@ -19,7 +19,6 @@ public class CauseService {
 	public CauseService(CauseRepository causeRepository) {
 		this.causeRepository = causeRepository;
 	}
-	
 	@Transactional
 	public void saveCause(Cause cause) throws DataAccessException {
 		//creating owner
@@ -28,10 +27,12 @@ public class CauseService {
 	}
 
 	@Transactional(readOnly = true)
-	public Cause findById(Integer id) throws DataAccessException {
+	public Cause findById(int id) {
 		return causeRepository.findById(id);
 	}
 
-	
-
+	@Transactional(readOnly = true)
+	public Iterable<Cause> findAll() {
+		return causeRepository.findAll();
+	}
 }
