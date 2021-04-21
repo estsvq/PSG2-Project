@@ -27,7 +27,7 @@ public class CauseService {
 	}
 
 	@Transactional(readOnly = true)
-	public Cause findById(int id) {
+	public Optional<Cause> findById(int id) {
 		return causeRepository.findById(id);
 	}
 

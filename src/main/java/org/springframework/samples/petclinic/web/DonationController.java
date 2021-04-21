@@ -2,8 +2,6 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
@@ -14,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,10 +32,9 @@ public class DonationController {
     }
 
     @ModelAttribute("cause")
-	public Cause findCause(@PathVariable("causeId") Integer causeId) {
-		return this.causeService.findById(causeId);
+	public Cause findCause(@PathVariable("causeId") int causeId) {
+		return this.causeService.findById(causeId).get();
 	}
-
 
     @GetMapping("/new")
     public String newDonation(Cause cause, Map<String, Object> model){
@@ -45,7 +43,7 @@ public class DonationController {
         return VIEWS_CREATE_DONATION;
     }
 
-    @GetMapping("/save")
+    @PostMapping("/new")
     public String saveDonation(Cause cause, Donation donation, BindingResult result,  Map<String, Object> model){
         if(result.hasErrors()){
             donation = donationService.createDonation(cause);
@@ -53,7 +51,7 @@ public class DonationController {
             return VIEWS_CREATE_DONATION;
         }else{
             donationService.save(donation);
-            return "redirect:/causes/{causeId}/donations";
+            return "redirect:/causes/{causeId}";
         } 
     }
 

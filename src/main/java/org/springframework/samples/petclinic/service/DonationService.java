@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
@@ -19,8 +20,9 @@ public class DonationService {
     private UserService userService;
 
     @Autowired
-    public DonationService(DonationRepository donationRepo){
+    public DonationService(DonationRepository donationRepo, UserService userService){
         this.donationRepo = donationRepo;
+        this.userService = userService;
     }
 
     @Transactional

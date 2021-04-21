@@ -9,17 +9,17 @@
 <petclinic:layout pageName="donations">
     <jsp:body>
         <h1>
-            <spring:message code="book_room_pet" />
+            <spring:message code="donate_to_cause" />
         </h1>
         <form:form modelAttribute="donation" class="form-horizontal" id="add-owner-form">
             <div class="form-group has-feedback">
                 <spring:message code="cause" var="causeLabel" />
-                <petclinic:inputField label="${causeLabel}" name="cause" disabled="true"/>
+                <petclinic:inputField label="${causeLabel}" name="cause"/>
                 <spring:message code="date" var="dateLabel" />
-                <petclinic:inputField label="${dateLabel}" name="date" disabled="true"/>
+                <petclinic:inputField label="${dateLabel}" name="date"/>
                 <spring:message code="amount" var="amountLabel" />
                 <petclinic:inputField label="${amountLabel}" name="amount"/>
-                <input type="hidden" name="client" value="${donation.client}">
+                <input type="hidden" name="client" value="${donation.client.getUsername()}">
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

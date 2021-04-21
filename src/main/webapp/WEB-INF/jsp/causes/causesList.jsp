@@ -35,7 +35,7 @@
                                 <spring:message code="openTrue"/>
                             </td>
                             <td>
-                                <spring:url value="/cuases/{causeId}/donations/new" var="donateUrl">
+                                <spring:url value="/causes/{causeId}/donations/new" var="donateUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
                                 <a href="${fn:escapeXml(donateUrl)}"><spring:message code="donate"/></a>
