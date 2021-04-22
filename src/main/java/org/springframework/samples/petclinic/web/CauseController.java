@@ -1,9 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
+import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +28,21 @@ public class CauseController {
 	}
 
 	@GetMapping(value = "/causes/{causeId}")
-	public String initFindForm(@PathVariable(value="causeId") int ownerId, Model model) {
-		Cause cause = causeService.findById(ownerId);
+	public String viewCauseDetails(@PathVariable(value="causeId") int ownerId, Model model) {
+		Optional<Cause> optionalCause = causeService.findById(ownerId);
 
-		if (cause == null) {
+		if (!optionalCause.isPresent()) {
 			return "causes/causesList";
 		}
 
+		Cause cause = optionalCause.get();
 		model.addAttribute("cause", cause);
 
-		// TODO Add donations listing when it is ready
+		Double totalBudget = causeService.calculateCauseTotalBudget(cause);
+		model.addAttribute("totalBudget", totalBudget);
+
+		Set<Donation> donations = cause.getDonations();
+		model.addAttribute("donations", donations);
 
 		return "causes/causeDetails";
 	}

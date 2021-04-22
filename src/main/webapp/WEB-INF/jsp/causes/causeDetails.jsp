@@ -24,19 +24,19 @@
         </tr>
         <tr>
             <th><spring:message code="total_budget" /></th>
-            <td><c:out value="${cause.totalBudget}"/></td>
+            <td><c:out value="${totalBudget}"/></td>
         </tr>
          <tr>
             <th><spring:message code="organization" /></th>
             <td><c:out value="${cause.actNonProfOrg}"/></td>
         </tr>
         <tr>
-            <th><spring:message code="is_open" /></th>
-            <td><c:out value="${cause.isOpen}"/></td>
+            <th><spring:message code="is_open_to_donations" /></th>
+            <td><spring:message code="${cause.isOpen ? 'yes': 'no'}" /></td>
         </tr>
     </table>
 
-    <spring:url value="{causeId}/donate" var="donateUrl">
+    <spring:url value="{causeId}/donations/new" var="donateUrl">
         <spring:param name="causeId" value="${cause.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(donateUrl)}" class="btn btn-default"><spring:message code="add_donation" /></a>
@@ -57,7 +57,7 @@
         <c:forEach items="${donations}" var="donation">
             <tr>
                 <td>
-                    <c:out value="${donation.name}"/>
+                    <c:out value="${donation.client.username}"/>
                 </td>
                 <td>
                     <c:out value="${donation.amount}"/>

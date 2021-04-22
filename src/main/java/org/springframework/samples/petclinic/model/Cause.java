@@ -1,7 +1,12 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +31,9 @@ public class Cause extends BaseEntity{
 	
 	@Column(name = "is_open")	
 	private Boolean isOpen;
+
+	@OneToMany(mappedBy = "cause", fetch = FetchType.EAGER)
+    private Set<Donation> donations;
 	
 	public Cause() {
 		super();
@@ -72,6 +80,14 @@ public class Cause extends BaseEntity{
 		this.isOpen = isOpen;
 	}
 
+	public Set<Donation> getDonations() {
+		return donations;
+	}
+
+	public void setDonations(Set<Donation> donations) {
+		this.donations = donations;
+	}
+	
 	@Override
 	public String toString() {
 		return "Cause [name=" + name + ", description=" + description + ", budgetTarget=" + budgetTarget
