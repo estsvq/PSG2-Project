@@ -21,7 +21,7 @@
             <c:forEach items="${causes}" var="cause">
                 <tr>
                     <td>
-                        <spring:url value="/cuases/{causeId}" var="causeUrl">
+                        <spring:url value="/causes/{causeId}" var="causeUrl">
                             <spring:param name="causeId" value="${cause.id}"/>
                         </spring:url>
                         <a href="${fn:escapeXml(causeUrl)}"><c:out value="${cause.name}"/></a>
@@ -35,7 +35,7 @@
                                 <spring:message code="openTrue"/>
                             </td>
                             <td>
-                                <spring:url value="/cuases/{causeId}/donations/new" var="donateUrl">
+                                <spring:url value="/causes/{causeId}/donations/new" var="donateUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
                                 <a href="${fn:escapeXml(donateUrl)}"><spring:message code="donate"/></a>

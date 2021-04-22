@@ -1,19 +1,16 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
-import java.util.Optional;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CauseController {
@@ -28,17 +25,14 @@ public class CauseController {
 	}
 
 	@GetMapping(value = "/causes/{causeId}")
-	public String initFindForm(@PathVariable("causeId") int ownerId, BindingResult result, Map<String, Object> model) {
-		Optional<Cause> optionalCause = causeService.getCauseById(ownerId);
+	public String initFindForm(@PathVariable(value="causeId") int ownerId, Model model) {
+		Cause cause = causeService.findById(ownerId);
 
-		if (optionalCause.isEmpty()) {
-			result.rejectValue("causeId", "notFound", "Cause was not found.");
+		if (cause == null) {
 			return "causes/causesList";
 		}
 
-		Cause cause = optionalCause.get();
-
-		model.put("cause", cause);
+		model.addAttribute("cause", cause);
 
 		// TODO Add donations listing when it is ready
 

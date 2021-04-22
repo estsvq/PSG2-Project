@@ -19,8 +19,8 @@
             <td><c:out value="${cause.description}"/></td>
         </tr>
         <tr>
-            <th><spring:message code="target_budget" /></th>
-            <td><c:out value="${cause.targetBugdet}"/></td>
+            <th><spring:message code="budget_target" /></th>
+            <td><c:out value="${cause.budgetTarget}"/></td>
         </tr>
         <tr>
             <th><spring:message code="total_budget" /></th>
@@ -28,7 +28,7 @@
         </tr>
          <tr>
             <th><spring:message code="organization" /></th>
-            <td><c:out value="${cause.organization}"/></td>
+            <td><c:out value="${cause.actNonProfOrg}"/></td>
         </tr>
         <tr>
             <th><spring:message code="is_open" /></th>
