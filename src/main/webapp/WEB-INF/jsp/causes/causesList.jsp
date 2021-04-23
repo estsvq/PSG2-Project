@@ -21,7 +21,7 @@
             <c:forEach items="${causes}" var="cause">
                 <tr>
                     <td>
-                        <spring:url value="/cuases/{causeId}" var="causeUrl">
+                        <spring:url value="/causes/{causeId}" var="causeUrl">
                             <spring:param name="causeId" value="${cause.id}"/>
                         </spring:url>
                         <a href="${fn:escapeXml(causeUrl)}"><c:out value="${cause.name}"/></a>
