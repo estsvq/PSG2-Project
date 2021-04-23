@@ -13,7 +13,7 @@
             <tr>
                 <th><spring:message code="cause"/></th>
                 <th><spring:message code="budget_target"/></th>
-                <th><spring:message code="is_open"/></th>
+                <th><spring:message code="is_open_to_donations"/></th>
                 <th></th>
             </tr>
         </thead>
