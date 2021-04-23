@@ -25,6 +25,7 @@ public class ReservationController {
 
     private final ReservationService resService;
     private final OwnerService ownerService;
+    
     @Autowired
     public ReservationController(ReservationService resService, OwnerService ownerService){
         this.resService = resService;
@@ -54,9 +55,21 @@ public class ReservationController {
             return VIEWS_CREATE_RESERVATION;
 		}
         else{
-            resService.saveReservation(res);
+            try {
+				resService.saveReservation(res);
+			} catch (BusyReservationException e) {
+				e.printStackTrace();
+				// model.put("errMessage", );
+				return "redirect:/owners/{ownerId}";
+			}
             return "redirect:/owners/{ownerId}";
         }
 
     }
+    
+
+    public String hotelOcupado() {
+    	return VIEWS_CREATE_RESERVATION;
+    }
+    
 }

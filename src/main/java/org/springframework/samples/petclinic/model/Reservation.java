@@ -21,14 +21,15 @@ public class Reservation extends BaseEntity{
     private Pet pet;
 
     @Column(name = "start_date")
-    @FutureOrPresent
+    @FutureOrPresent(message = "La fecha debe ser presente o futura")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate startDate;
 
     @Column(name = "finnish_date")
-    @Future
+    @Future(message = "La fecha debe ser futura")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate finnishDate;
+    
 
 
     public Pet getPet() {
@@ -54,7 +55,6 @@ public class Reservation extends BaseEntity{
     public void setFinnishDate(LocalDate finnishDate) {
         this.finnishDate = finnishDate;
     }
-
     
 
 }
