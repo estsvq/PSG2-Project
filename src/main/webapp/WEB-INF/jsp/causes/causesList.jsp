@@ -13,7 +13,8 @@
             <tr>
                 <th><spring:message code="cause"/></th>
                 <th><spring:message code="budget_target"/></th>
-                <th><spring:message code="is_open"/></th>
+                <th><spring:message code="total_budget" /></th>
+                <th><spring:message code="is_open_to_donations"/></th>
                 <th></th>
             </tr>
         </thead>
@@ -28,6 +29,9 @@
                     </td>
                     <td>
                         <c:out value="${cause.budgetTarget}"/>
+                    </td>
+                    <td>
+                        <c:out value="${cause.totalBudget}"/>
                     </td>
                     <c:choose>
                         <c:when test="${cause.isOpen}">

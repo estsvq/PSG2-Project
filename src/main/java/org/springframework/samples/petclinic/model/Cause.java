@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
@@ -34,7 +35,18 @@ public class Cause extends BaseEntity{
 
 	@OneToMany(mappedBy = "cause", fetch = FetchType.EAGER)
     private Set<Donation> donations;
+
+	@Transient
+	private Double totalBudget; 
 	
+	public Double getTotalBudget() {
+		return totalBudget;
+	}
+
+	public void setTotalBudget(Double totalBudget) {
+		this.totalBudget = totalBudget;
+	}
+
 	public Cause() {
 		super();
 		this.setIsOpen(true);
