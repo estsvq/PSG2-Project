@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,16 +19,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Donation extends BaseEntity{
     
     @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @NotNull
     private LocalDate date;
 
+    @Positive
+    @NotNull
     private Double amount;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "username")
     private User client;
 
     @ManyToOne
-    @JoinColumn(name = "name")
+    @JoinColumn(name = "cause_id")
+    @NotNull
     private Cause cause;
 
     public LocalDate getDate() {

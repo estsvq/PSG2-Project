@@ -2,6 +2,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
@@ -44,14 +46,22 @@ public class DonationController {
     }
 
     @PostMapping("/new")
-    public String saveDonation(Cause cause, Donation donation, BindingResult result,  Map<String, Object> model){
+    public String saveDonation(Cause cause, @Valid Donation donation, BindingResult result,  Map<String, Object> model){
         if(result.hasErrors()){
             donation = donationService.createDonation(cause);
-            model.put("donation", new Donation());
+            model.put("donation", donation);
+            model.put("message", "Ha habido algún error con el formulario. Por favor, revise.");
             return VIEWS_CREATE_DONATION;
         }else{
-            donationService.save(donation);
-            return "redirect:/causes/{causeId}";
+            try{
+                donationService.save(donation);
+                return "redirect:/causes/{causeId}";
+            }catch(Exception e){
+                model.put("status", e.getCause());
+                return VIEWS_CREATE_DONATION;
+            }
+            
+            
         } 
     }
 

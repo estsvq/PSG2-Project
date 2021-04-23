@@ -40,7 +40,7 @@
 					<span><spring:message code="vets" /></span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/new"
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes"
 					title="causes">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="causes" /></span>
