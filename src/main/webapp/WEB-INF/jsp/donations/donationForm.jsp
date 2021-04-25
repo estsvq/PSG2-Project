@@ -14,9 +14,9 @@
         <form:form modelAttribute="donation" class="form-horizontal" id="add-owner-form">
             <div class="form-group has-feedback">
                 <spring:message code="cause" var="causeLabel" />
-                <petclinic:inputField label="${causeLabel}" name="cause"/>
+                <petclinic:inputField label="${causeLabel}" name="cause" disabled="true"/>
                 <spring:message code="date" var="dateLabel" />
-                <petclinic:inputField label="${dateLabel}" name="date"/>
+                <petclinic:inputField label="${dateLabel}" name="date" disabled="true"/>
                 <spring:message code="amount" var="amountLabel" />
                 <petclinic:inputField label="${amountLabel}" name="amount"/>
                 <input type="hidden" name="client" value="${donation.client.getUsername()}">

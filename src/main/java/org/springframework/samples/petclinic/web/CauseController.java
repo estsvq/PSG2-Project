@@ -28,8 +28,8 @@ public class CauseController {
 	}
 
 	@GetMapping(value = "/causes/{causeId}")
-	public String viewCauseDetails(@PathVariable(value="causeId") int ownerId, Model model) {
-		Optional<Cause> optionalCause = causeService.findById(ownerId);
+	public String viewCauseDetails(@PathVariable(value="causeId") int causeId, Model model) {
+		Optional<Cause> optionalCause = causeService.findById(causeId);
 
 		if (!optionalCause.isPresent()) {
 			return "causes/causesList";
@@ -71,9 +71,13 @@ public class CauseController {
 	 * Object> model) { return "welcome"; // return VIEWS_CAUSE_CREATE_FORM; }
 	 */
 	@GetMapping(value = "/causes")
-	public String listAllCauses(Map<String, Iterable<Cause>> model) {
+	public String listAllCauses(Model model) {
 		Iterable<Cause> causes = causeService.findAll();
-		model.put("causes", causes);
+		for(Cause c:causes){
+			Double totalBudget = causeService.calculateCauseTotalBudget(c);
+			c.setTotalBudget(totalBudget);
+		}
+		model.addAttribute("causes", causes);
 		return "causes/causesList";
 	}
 }

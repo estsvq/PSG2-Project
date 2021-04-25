@@ -18,16 +18,25 @@ public class DonationService {
 
     private DonationRepository donationRepo;
     private UserService userService;
+    private CauseService causeService;
 
     @Autowired
-    public DonationService(DonationRepository donationRepo, UserService userService){
+    public DonationService(DonationRepository donationRepo, UserService userService, CauseService causeService){
         this.donationRepo = donationRepo;
         this.userService = userService;
+        this.causeService = causeService;
     }
 
     @Transactional
-    public <S extends Donation> S save(S entity) throws DataAccessException {
-        return donationRepo.save(entity);
+    public void save(Donation donation) throws DataAccessException {
+        donationRepo.save(donation);
+        Cause cause = causeService.findById(donation.getCause().getId()).get();
+        Boolean b = cause.getDonations().add(donation);
+ 
+        System.out.println(cause.getDonations().size());
+        if(causeService.calculateCauseTotalBudget(cause)>=cause.getBudgetTarget()){
+            cause.setIsOpen(false);
+        }
     }
     @Transactional
     public <S extends Donation> Iterable<S> saveAll(Iterable<S> entities) throws DataAccessException {
