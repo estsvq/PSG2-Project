@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,15 +17,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "reservations")
 public class Reservation extends BaseEntity{
     
+	@NotNull
     @ManyToOne
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
+	@NotNull
     @Column(name = "start_date")
     @FutureOrPresent(message = "La fecha debe ser presente o futura")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate startDate;
 
+	@NotNull
     @Column(name = "finnish_date")
     @Future(message = "La fecha debe ser futura")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
