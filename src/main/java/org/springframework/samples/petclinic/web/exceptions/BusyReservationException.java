@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.web;
+package org.springframework.samples.petclinic.web.exceptions;
 
 public class BusyReservationException extends Exception{
 	/**

@@ -8,7 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Reservation;
 import org.springframework.samples.petclinic.repository.ReservationRepository;
-import org.springframework.samples.petclinic.web.BusyReservationException;
+import org.springframework.samples.petclinic.web.exceptions.BusyReservationException;
+import org.springframework.samples.petclinic.web.exceptions.EndDateIsNotAfterStartDateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public <S extends Reservation> S saveReservation(S entity) throws BusyReservationException {
+    public <S extends Reservation> S saveReservation(S entity) throws BusyReservationException, EndDateIsNotAfterStartDateException {
     	
     	LocalDate startDate = entity.getStartDate();
     	LocalDate endDate = entity.getFinnishDate();
@@ -37,13 +38,18 @@ public class ReservationService {
 						|| ((x.getFinnishDate().isAfter(startDate) || x.getFinnishDate().isEqual(startDate))
 								&& (x.getFinnishDate().isBefore(endDate) || x.getFinnishDate().isEqual(endDate))));
 
-    	
+		if (endDate != null && startDate.isAfter(endDate)) {
+			throw new EndDateIsNotAfterStartDateException(
+					"[!][!] La fecha final debe ser posterior o igual a la fecha de inicio.");
+		} else if (startDate.isAfter(endDate) || startDate.isEqual(endDate)) {
+			throw new EndDateIsNotAfterStartDateException("[!][!] La fecha fin debe ser posterior a la fecha de inicio... Corrija por favor.");
+		}
+		
     	if ((startDate != null && endDate != null) && reservaHecha) {
     		
-    		// entity.setErrMessage("Fecha Reservada, seleccione otra.");
-    		// System.out.println(entity.getErrMessage());
-    		throw new BusyReservationException("Fecha Reservada, seleccione otra.");
+    		throw new BusyReservationException("[!][!] Fecha Reservada, seleccione otra por favor.");
 		}
+
     	
         return resRepository.save(entity);
     }
