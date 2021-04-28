@@ -6,6 +6,7 @@
 
 <petclinic:layout pageName="owners">
 
+	<!--  <h2><c:out value="${errMessage}"/>a</h2> -->
     <h2><spring:message code="owner_information" /></h2>
 
 

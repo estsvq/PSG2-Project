@@ -9,6 +9,8 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Reservation;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.ReservationService;
+import org.springframework.samples.petclinic.web.exceptions.BusyReservationException;
+import org.springframework.samples.petclinic.web.exceptions.EndDateIsNotAfterStartDateException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ public class ReservationController {
 
     private final ReservationService resService;
     private final OwnerService ownerService;
+    
     @Autowired
     public ReservationController(ReservationService resService, OwnerService ownerService){
         this.resService = resService;
@@ -54,9 +57,32 @@ public class ReservationController {
             return VIEWS_CREATE_RESERVATION;
 		}
         else{
-            resService.saveReservation(res);
+            try {
+				resService.saveReservation(res);
+			} catch (BusyReservationException e) {
+				e.printStackTrace();
+				Reservation reservation = resService.creaNuevaReserva(res);
+	            model.put("userPets", owner.getPets());
+	            model.put("reservation", reservation);
+				model.put("message", "[!][!] ERROR: Fecha Reservada, seleccione otra por favor.");	
+				return VIEWS_CREATE_RESERVATION;
+			} catch(EndDateIsNotAfterStartDateException e)
+            {
+				Reservation reservation = resService.creaNuevaReserva(res);
+	            model.put("userPets", owner.getPets());
+	            model.put("reservation", reservation);
+				model.put("message", "[!][!] ERROR: La fecha final debe ser posterior o igual a la fecha de inicio.");
+				e.printStackTrace();
+				return VIEWS_CREATE_RESERVATION;
+            }
             return "redirect:/owners/{ownerId}";
         }
 
     }
+    
+
+    public String hotelOcupado() {
+    	return VIEWS_CREATE_RESERVATION;
+    }
+    
 }
