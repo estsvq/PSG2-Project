@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
+
+import com.sun.tools.javac.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

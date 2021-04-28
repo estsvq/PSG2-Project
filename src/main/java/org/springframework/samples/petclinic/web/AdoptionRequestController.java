@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -24,7 +25,7 @@ public class AdoptionRequestController {
 
     private static final String VIEWS_CREATE_ADOPTION_REQUEST = "adoptionRequests/createOrUpdateAdoptionRequestForm";
 
-    private static final String VIEWS_LIST_ADOPTION_REQUEST = "adoptionRequests/AdoptionRequestList";
+    private static final String VIEWS_LIST_ADOPTION_REQUEST = "adoptionRequests/adoptionRequestList";
 
     private final OwnerService ownerService;
 
@@ -48,7 +49,7 @@ public class AdoptionRequestController {
             return "redirect:/";
         }
 
-        Collection<Pet> pets = ownerService.findPetsByUser(user);
+        Collection<Pet> pets = ownerService.findPetsByUser(user).stream().filter(pet -> pet.getAdoptionRequest()==null).collect(Collectors.toList());
 
         AdoptionRequest adoptionRequest = new AdoptionRequest();
 
