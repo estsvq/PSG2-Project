@@ -17,6 +17,10 @@
             <th><spring:message code="pet_name" /></th>
             <td><b><c:out value="${adoptionApplication.adoptionRequest.pet.name}"/></b></td>
         </tr>
+            <tr>
+            <th><spring:message code="description" /></th>
+            <td><b><c:out value="${adoptionApplication.adoptionRequest.description}"/></b></td>
+        </tr>
         <tr>
             <th><spring:message code="type" /></th>
             <td><b><spring:message code="${adoptionApplication.adoptionRequest.pet.type.name}" /></b></td>
