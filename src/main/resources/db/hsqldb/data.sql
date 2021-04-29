@@ -88,6 +88,11 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
+INSERT INTO causes(id, name, budget_target, act_non_prof_org, is_open) VALUES (1, 'Causa1', 500.0, 'SaveChildren', true);
+INSERT INTO causes(id, name, description, budget_target, act_non_prof_org, is_open) VALUES (2, 'Causa2','Descripcion', 700.0, 'MedicosSinFronteras', true);
+
+INSERT INTO donations(id, date, amount, username, cause_id) VALUES (1, '2021-03-15', 100.0, 'owner1', 1);
+INSERT INTO donations(id, date, amount, username, cause_id) VALUES (2, '2021-03-23', 150.0, 'owner1', 1);
 INSERT INTO adoption_request VALUES (1,'This pet is really quiet.');
 
 INSERT INTO pets(id,name,birth_date, adoption_request_id,type_id,owner_id) VALUES (9, 'Lucky', '2011-08-06',1, 5, 7);

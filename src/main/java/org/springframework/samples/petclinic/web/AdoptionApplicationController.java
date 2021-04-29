@@ -91,6 +91,9 @@ public class AdoptionApplicationController {
 
     @GetMapping("/adoptions/{adoptionId}/applications/{applicationId}/approve")
     public String approveApplications(@PathVariable("adoptionId") int adoptionId,@PathVariable("applicationId") int applicationId){
+        if(!adoptionRequestService.checkIfIsOwner(adoptionId)){
+            return "redirect:/";
+        }
         this.adoptionApplicationService.approveAdoption(applicationId, adoptionId);
         return "redirect:/adoptions/myAdoptions";
     }
