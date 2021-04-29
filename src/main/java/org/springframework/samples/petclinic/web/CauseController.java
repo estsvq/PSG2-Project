@@ -2,8 +2,6 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.service.CauseService;
@@ -33,7 +31,7 @@ public class CauseController {
 	
 	@PostMapping(value = "/causes/new")
 	public String processCreationForm(Cause cause, BindingResult result) {
-		System.out.println(cause);
+
 		if (result.hasErrors()) {
 			return VIEWS_CAUSE_CREATE_FORM;
 		}
