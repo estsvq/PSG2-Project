@@ -1,10 +1,10 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.AdoptionApplication;
-import org.springframework.samples.petclinic.model.AdoptionRequest;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.AdoptionApplicationService;
 import org.springframework.samples.petclinic.service.AdoptionRequestService;
@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionApplicationException;
 import org.springframework.samples.petclinic.service.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdoptionApplicationController {
 
     static final String VIEWS_CREATE_ADOPTION_APPLICATION = "adoptionApplications/createOrUpdateAdoptionApplicationForm";
+
+    static final String VIEWS_LIST_ADOPTION_APPLICATION = "adoptionApplications/petApplications";
 
     AdoptionApplicationService adoptionApplicationService;
 
@@ -74,5 +77,21 @@ public class AdoptionApplicationController {
 
         }
         return "redirect:/adoptions";
+    }
+
+    @GetMapping("/adoptions/{adoptionId}/applications")
+    public String listPetApplications(@PathVariable("adoptionId") int adoptionId, ModelMap model){
+        if(!adoptionRequestService.checkIfIsOwner(adoptionId)){
+            return "redirect:/";
+        }
+        List<AdoptionApplication> lista = adoptionApplicationService.findAdoptionApplicationByAdoptionRequest(adoptionId);
+        model.addAttribute("applications", lista);
+        return VIEWS_LIST_ADOPTION_APPLICATION;
+    }
+
+    @GetMapping("/adoptions/{adoptionId}/applications/{applicationId}/approve")
+    public String approveApplications(@PathVariable("adoptionId") int adoptionId,@PathVariable("applicationId") int applicationId){
+        this.adoptionApplicationService.approveAdoption(applicationId, adoptionId);
+        return "redirect:/adoptions/myAdoptions";
     }
 }
