@@ -56,7 +56,7 @@ public class CauseController {
 
 	@PostMapping(value = "/causes/new")
 	public String processCreationForm(Cause cause, BindingResult result) {
-		System.out.println(cause);
+
 		if (result.hasErrors()) {
 			return VIEWS_CAUSE_CREATE_FORM;
 		} else {
