@@ -39,7 +39,13 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="vets" /></span>
 				</petclinic:menuItem>
-				
+
+				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
+					title="adoptions">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span><spring:message code="adoptions" /></span>
+				</petclinic:menuItem>
+
 				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/new"
 					title="causes">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
