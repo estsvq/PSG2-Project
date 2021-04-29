@@ -5,6 +5,6 @@ import org.springframework.samples.petclinic.model.AdoptionRequest;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdoptionRequestRepository extends CrudRepository<AdoptionRequest, Long> {
+public interface AdoptionRequestRepository extends CrudRepository<AdoptionRequest, Integer> {
 
 }

@@ -1,11 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
-import java.util.stream.StreamSupport;
-
-import javax.transaction.Transactional;
-
-import com.sun.tools.javac.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -41,6 +36,11 @@ public class AdoptionRequestService {
     @Transactional
     public Iterable<AdoptionRequest> findAllAdoptionRequests() {
         return this.adoptionRequestRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public AdoptionRequest findById(Integer id) {
+        return this.adoptionRequestRepository.findById(id).orElse(null);
     }
 
 }
