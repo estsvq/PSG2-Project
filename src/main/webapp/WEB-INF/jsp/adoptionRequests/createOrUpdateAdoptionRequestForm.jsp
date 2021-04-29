@@ -10,7 +10,7 @@
     <h2>
                <spring:message code="new" />&nbsp; <spring:message code="adoption" />
     </h2>
-    <form:form modelAttribute="adoptionRequest" class="form-horizontal" id="add-cause-form">
+    <form:form modelAttribute="adoptionApplication" class="form-horizontal" id="add-adoption-application-form">
         <div class="form-group has-feedback">
 
             <div class="control-group">
