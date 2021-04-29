@@ -11,6 +11,9 @@
     <a href="/adoptions/new" style="float: right; margin-bottom: 10px;">
         <button><spring:message code="add_adoptionReq" /></button>
     </a>
+    <a href="/adoptions/myAdoptions" style="float: right; margin-bottom: 10px; margin-right: 10px;">
+        <button><spring:message code="myAdoptions" /></button>
+    </a>
 
     <table id="adoptionsReqTable" class="table table-striped">
         <thead>

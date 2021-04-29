@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -9,12 +10,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.AdoptionRequest;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.AdoptionRequestService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +29,8 @@ public class AdoptionRequestController {
     private static final String VIEWS_CREATE_ADOPTION_REQUEST = "adoptionRequests/createOrUpdateAdoptionRequestForm";
 
     private static final String VIEWS_LIST_ADOPTION_REQUEST = "adoptionRequests/adoptionRequestList";
+
+    private static final String VIEWS_LIST_MY_ADOPTIONS_REQUEST = "adoptionRequests/adoptionRequestOwnerList";
 
     private final OwnerService ownerService;
 
@@ -39,6 +44,15 @@ public class AdoptionRequestController {
         this.ownerService = ownerService;
         this.adoptionRequestService = adoptionRequestService;
         this.userService = userService;
+    }
+
+    @GetMapping("/adoptions/myAdoptions")
+    public String listMyAdoptions(ModelMap model){
+        Owner owner = ownerService.findOwnerByUsername(userService.getLoggedUser().getUsername());
+        List<AdoptionRequest> lista = adoptionRequestService.findAdoptionsRequestByOwner(owner.getId());
+        model.addAttribute("adoptions",lista);
+        return VIEWS_LIST_MY_ADOPTIONS_REQUEST;
+
     }
 
     @GetMapping(value = "/adoptions/new")

@@ -1,11 +1,13 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.AdoptionApplication;
 import org.springframework.samples.petclinic.model.AdoptionRequest;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.repository.AdoptionApplicationRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionApplicationException;
 import org.springframework.samples.petclinic.service.exceptions.NotFoundException;
@@ -20,12 +22,15 @@ public class AdoptionApplicationService {
 
     OwnerService ownerService;
 
+    PetService petService;
+
     @Autowired
     public AdoptionApplicationService(AdoptionApplicationRepository adoptionApplicationRepository,
-            AdoptionRequestService adoptionRequestService, OwnerService ownerService) {
+            AdoptionRequestService adoptionRequestService, OwnerService ownerService,PetService petService) {
         this.adoptionApplicationRepository = adoptionApplicationRepository;
         this.adoptionRequestService = adoptionRequestService;
         this.ownerService = ownerService;
+        this.petService = petService;
     }
 
     public AdoptionApplication saveAdoptionApplication(AdoptionApplication adoptionApplication) throws DuplicatedAdoptionApplicationException {
@@ -55,5 +60,28 @@ public class AdoptionApplicationService {
         adoptionApplication.setApplicant(owner);
         adoptionApplication.setAdoptionRequest(adoptionRequest);
         return adoptionApplication;
+    }
+
+    public List<AdoptionApplication> findAdoptionApplicationByAdoptionRequest(Integer adRequestId){
+        return this.adoptionApplicationRepository.findAdoptionApplicationByAdoptionRequest(adRequestId);
+    }
+
+    public void approveAdoption(Integer applicationId, Integer adoptionId){
+        AdoptionApplication adop = this.adoptionApplicationRepository.findById(applicationId).get();
+        List<AdoptionApplication> lista = this.findAdoptionApplicationByAdoptionRequest(adoptionId);
+        this.adoptionApplicationRepository.deleteAll(lista);
+        AdoptionRequest adoptionRequest = adop.getAdoptionRequest();
+        Pet pet = adoptionRequest.getPet();
+        pet.setOwner(adop.getApplicant());
+        pet.setAdoptionRequest(null);
+        adoptionRequest.setPet(null);
+        try{
+            this.petService.savePet(pet);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        this.adoptionRequestService.delete(adoptionRequest.getId());
+
+
     }
 }

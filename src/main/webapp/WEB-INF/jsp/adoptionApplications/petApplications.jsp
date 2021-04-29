@@ -10,10 +10,6 @@
 
     <table id="adoptionsReqTable" class="table table-striped">
         <thead>
-        
-        <tr>
-            <th><spring:message code="applications" /><c:out value="${adoption.pet.name}"/></th>
-        </tr>
         <tr>
             <th><spring:message code="name" /></th>
             <th><spring:message code="city" /></th>
@@ -27,20 +23,20 @@
         <c:forEach items="${applications}" var="application">
                 <tr>
                     <td>
-                        <c:out value="${application.owner.name}"/>
+                        <c:out value="${application.adoptionRequest.pet.owner.firstName}"/>
                     </td>
                     <td>
-                        <c:out value="${application.owner.city}"/>
+                        <c:out value="${application.adoptionRequest.pet.owner.city}"/>
                     </td>
                     <td>
-                        <c:out value="${application.owner.telephone}"/>
+                        <c:out value="${application.adoptionRequest.pet.owner.telephone}"/>
                     </td>       
                     <td>
                         <c:out value="${application.description}"/>
                     </td>                    
                     <td>
-                        <spring:url value="/adoptions/{adoptionID}/approve" var="approveURL">
-                            <spring:param name="adoptionID" value="${adoption.id}"/>
+                        <spring:url value="applications/{applicationId}/approve" var="approveURL">
+                            <spring:param name="applicationId" value="${application.id}"/>
                         </spring:url>
                         <a href="${fn:escapeXml(approveURL)}" class="btn btn-default">
                             <spring:message code="approve"/>
