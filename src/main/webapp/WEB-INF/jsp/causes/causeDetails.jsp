@@ -36,11 +36,12 @@
         </tr>
     </table>
 
+    <c:if test="${cause.isOpen}">
     <spring:url value="{causeId}/donations/new" var="donateUrl">
         <spring:param name="causeId" value="${cause.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(donateUrl)}" class="btn btn-default"><spring:message code="add_donation" /></a>
-
+    </c:if>
     <br/>
     <br/>
     <br/>
