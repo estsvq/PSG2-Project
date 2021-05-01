@@ -7,7 +7,10 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="causes">
-    <h2><spring:message code="cause" /></h2>
+    <h2 style = "float: left;"><spring:message code="cause" /></h2>
+    <a href="/causes/new" style="float: right; margin-bottom: 10px;">
+        <button><spring:message code="new_cause" /></button>
+    </a>
     <table id="causesTable" class="table table-striped">
         <thead>
             <tr>
@@ -48,6 +51,8 @@
                         <c:otherwise>
                             <td>
                                 <spring:message code="openFalse"/>
+                            </td>
+                            <td>
                             </td>
                         </c:otherwise>
                     </c:choose>
