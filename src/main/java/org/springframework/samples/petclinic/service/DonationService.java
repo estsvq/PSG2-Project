@@ -5,7 +5,6 @@ import java.util.Optional;
 
 
 import org.springframework.transaction.annotation.Transactional;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
@@ -35,9 +34,8 @@ public class DonationService {
         }
         donationRepo.save(donation);
         Cause cause = causeService.findById(donation.getCause().getId()).get();
-        Boolean b = cause.getDonations().add(donation);
+        cause.getDonations().add(donation);
  
-        System.out.println(cause.getDonations().size());
         if(causeService.calculateCauseTotalBudget(cause)>=cause.getBudgetTarget()){
             cause.setIsOpen(false);
         }
