@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.repository.DonationRepository;
+import org.springframework.samples.petclinic.service.exceptions.CauseCloseException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,10 @@ public class DonationService {
     }
 
     @Transactional
-    public void save(Donation donation) throws DataAccessException {
+    public void save(Donation donation) throws DataAccessException, CauseCloseException {
+        if(!donation.getCause().getIsOpen()){
+            throw new CauseCloseException();
+        }
         donationRepo.save(donation);
         Cause cause = causeService.findById(donation.getCause().getId()).get();
         Boolean b = cause.getDonations().add(donation);

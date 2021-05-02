@@ -23,13 +23,13 @@
         <c:forEach items="${applications}" var="application">
                 <tr>
                     <td>
-                        <c:out value="${application.adoptionRequest.pet.owner.firstName}"/>
+                        <c:out value="${application.applicant.firstName}"/>
                     </td>
                     <td>
-                        <c:out value="${application.adoptionRequest.pet.owner.city}"/>
+                        <c:out value="${application.applicant.city}"/>
                     </td>
                     <td>
-                        <c:out value="${application.adoptionRequest.pet.owner.telephone}"/>
+                        <c:out value="${application.applicant.telephone}"/>
                     </td>       
                     <td>
                         <c:out value="${application.description}"/>
