@@ -24,6 +24,7 @@ import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
 	private UserRepository userRepository;
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@Autowired
 	public UserService(UserRepository userRepository) {
@@ -46,6 +48,8 @@ public class UserService {
 	@Transactional
 	public void saveUser(User user) throws DataAccessException {
 		user.setEnabled(true);
+		String encodedPassword = encoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
 		userRepository.save(user);
 	}
 	
