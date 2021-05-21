@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "causes")
@@ -20,6 +21,8 @@ public class Cause extends BaseEntity{
 	private String name;
 	
 	@Column(name = "description")
+	@NotEmpty
+	@Size(max = 200, min = 10)
 	private String description;
 	
 	@Column(name = "budget_target")	
@@ -27,6 +30,7 @@ public class Cause extends BaseEntity{
 	private Double budgetTarget;
 	
 	@Column(name = "act_non_prof_org")	
+	@NotEmpty
 	private String actNonProfOrg;
 	
 	@Column(name = "is_open")	
