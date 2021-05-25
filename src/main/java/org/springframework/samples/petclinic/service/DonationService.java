@@ -5,12 +5,12 @@ import java.util.Optional;
 
 
 import org.springframework.transaction.annotation.Transactional;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.repository.DonationRepository;
+import org.springframework.samples.petclinic.service.exceptions.CauseCloseException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,12 +28,14 @@ public class DonationService {
     }
 
     @Transactional
-    public void save(Donation donation) throws DataAccessException {
+    public void save(Donation donation) throws DataAccessException, CauseCloseException {
+        if(!donation.getCause().getIsOpen()){
+            throw new CauseCloseException();
+        }
         donationRepo.save(donation);
         Cause cause = causeService.findById(donation.getCause().getId()).get();
-        Boolean b = cause.getDonations().add(donation);
+        cause.getDonations().add(donation);
  
-        System.out.println(cause.getDonations().size());
         if(causeService.calculateCauseTotalBudget(cause)>=cause.getBudgetTarget()){
             cause.setIsOpen(false);
         }

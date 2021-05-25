@@ -53,26 +53,30 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="causes" /></span>
 				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span><spring:message code="error" /></span>
-				</petclinic:menuItem>
+				
+				<sec:authorize access="hasAuthority('admin')">
+			
+					<petclinic:menuItem active="${name eq 'error'}" url="/oups"
+						title="trigger a RuntimeException to see how it is handled">
+						<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+						<span><spring:message code="error" /></span>
+					</petclinic:menuItem>
+				
+				</sec:authorize>
 
 			</ul>
 
 
 
 
-			<ul class="nav navbar-nav navbar-right">
+			<ul style="float: right;" class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />"><spring:message code="login" /></a></li>
 					<li><a href="<c:url value="/users/new" />"><spring:message code="register" /></a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>�
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
