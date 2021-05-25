@@ -53,12 +53,16 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="causes" /></span>
 				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span><spring:message code="error" /></span>
-				</petclinic:menuItem>
+				
+				<sec:authorize access="hasAuthority('admin')">
+			
+					<petclinic:menuItem active="${name eq 'error'}" url="/oups"
+						title="trigger a RuntimeException to see how it is handled">
+						<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+						<span><spring:message code="error" /></span>
+					</petclinic:menuItem>
+				
+				</sec:authorize>
 
 			</ul>
 
