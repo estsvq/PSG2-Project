@@ -24,7 +24,8 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.User;
 
 import org.springframework.samples.petclinic.repository.OwnerRepository;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,6 +85,11 @@ public class OwnerService {
 	@Transactional(readOnly = true)
 	public Owner findOwnerByUsername(String username) {
 		return this.ownerRepository.findOwnerByUsername(username);
+	}
+
+	@Transactional
+	public Owner getLoggedOwner() {
+		return findOwnerByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 	}
 
 

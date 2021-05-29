@@ -110,6 +110,14 @@ public class OwnerController {
 
 	@GetMapping(value = "/owners/{ownerId}/edit")
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
+		
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+		if(loggedOwner.getId() != ownerId) 
+		{	
+			model.addAttribute("message", "[!!]You can't edit other owner.");
+			return "redirect:/owners";
+		}
+		
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		model.addAttribute(owner);
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
@@ -118,6 +126,14 @@ public class OwnerController {
 	@PostMapping(value = "/owners/{ownerId}/edit")
 	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
 			@PathVariable("ownerId") int ownerId) {
+		
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+		if(loggedOwner.getId() != ownerId) 
+		{	
+			// model.addAttribute("message", "[!!]You can't edit other owner.");
+			return "redirect:/owners";
+		}
+		
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
@@ -133,15 +149,38 @@ public class OwnerController {
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
+	
 	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
+		
+		// Added owner view security
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+		// model.addAttribute("isCurrentUser", loggedOwner != null && loggedOwner.getId() == ownerId);
+		
+		if(loggedOwner.getId() != ownerId) {			
+			ModelAndView exceptionMav = new ModelAndView("redirect:/owners");
+			model.put("message", "[!!]You can't see others owners.");
+			// exceptionMav.addObject("message", "[!!]You can't see others owners.");
+			//exceptionMav.
+			return exceptionMav;
+			
+		}
+		
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
 	}
 
 	@GetMapping("/owners/{ownerId}/delete")
-	public String deletOwner(@PathVariable("ownerId") int ownerId){
+	public String deletOwner(@PathVariable("ownerId") int ownerId, Map<String, Object> model){
+		
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+		if(loggedOwner.getId() != ownerId) 
+		{	
+			model.put("message", "[!!]You can't delete other owner.");
+			return "redirect:/owners";
+		}
+		
 		String vista = "owners/ownersList";
 		Owner owner = ownerService.findOwnerById(ownerId);
 		if(owner != null){
