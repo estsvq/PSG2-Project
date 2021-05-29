@@ -1,22 +1,21 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <petclinic:layout pageName="contacts">
-
     <h2><spring:message code="contact_info" /></h2>
 
-    <c:forEach items="${contacts} var="contact">
+    <c:forEach items="${contacts}" var="contact">
 
-        <table id="contactTable" class="table table-striped">
+
+        <table class="table table-striped">
             <thead>
             <tr>
-                <th colspan="2" scope="rowgroup"><c:out value="${contact.name}"/></th>                
+                <th colspan="2" scope="rowgroup"><c:out value="${contact.name}"/></th>
             </tr>
             </thead>
             <tbody>
@@ -32,11 +31,10 @@
                 <td style="width: 20%"><spring:message code="role" /></td>
                 <td style="width: 80%"><c:out value="${contact.role}"/></td>
             </tr>
-                
+
             </tbody>
         </table>
     </c:forEach>
 
-    
-	
+
 </petclinic:layout>

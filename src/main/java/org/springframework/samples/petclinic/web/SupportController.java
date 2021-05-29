@@ -43,16 +43,9 @@ public class SupportController {
     }
 
     @GetMapping(value = { "/contacts" })
-    public String showContacts(Map<String, Object> model) {
-
-        try {
-            List<Contact> contacts = supportService.getContacts();
-            System.out.println(contacts);
-            model.put("contacts", contacts);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String showContacts(Map<String, Object> model) throws IOException {
+        List<Contact> contacts = supportService.getContacts();
+        model.put("contacts", contacts);
         return VIEW_CONTACTS;
     }
 
