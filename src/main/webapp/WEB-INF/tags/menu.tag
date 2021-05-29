@@ -64,9 +64,15 @@
 				
 				</sec:authorize>
 
+
+				<petclinic:menuItem active="${name eq 'contact'}" url="/contacts"
+					title="Contacts">
+					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span><spring:message code="contact" /></span>
+				</petclinic:menuItem>
 			</ul>
 
-
+			
 
 
 			<ul style="float: right;" class="nav navbar-nav navbar-right">
