@@ -20,45 +20,48 @@
 @spring-dark-brown: rgb(109, 78, 18);
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
+@spring-light-blue: rgb(107, 193, 233);
+@spring-blue: rgb(0, 138, 252);
+@spring-dark-blue: rgb(56, 114, 141);
 
 
 @body-bg:                           @spring-light-grey;
 @text-color:                        @spring-brown;
-@link-color:                        @spring-dark-brown;
-@link-hover-color:                  @spring-dark-brown;
+@link-color:                        @spring-dark-blue;
+@link-hover-color:                  @spring-dark-blue;
 
 @navbar-default-link-color:         @spring-light-grey;
 @navbar-default-link-active-color:  @spring-light-grey;
 @navbar-default-link-hover-color:   @spring-light-grey;
-@navbar-default-link-hover-bg:      @spring-brown;
+@navbar-default-link-hover-bg:      @spring-dark-blue;
 @navbar-default-toggle-icon-bar-bg: @spring-light-grey;
 @navbar-default-toggle-hover-bg:    transparent;
-@navbar-default-link-active-bg:     @spring-brown;
+@navbar-default-link-active-bg:     @spring-dark-blue;
 
 @border-radius-base:             0;
 @border-radius-large:            0;
 @border-radius-small:            0;
 
 @btn-default-color:              @spring-light-grey;
-@btn-default-bg:                 @spring-brown;
-@btn-default-border:             @spring-brown;
+@btn-default-bg:                 @spring-blue;
+@btn-default-border:             @spring-blue;
 
 @nav-tabs-active-link-hover-color:        @spring-light-grey;
-@nav-tabs-active-link-hover-bg:           @spring-brown;
-@nav-tabs-active-link-hover-border-color: @spring-brown;
-@nav-tabs-border-color:                   @spring-brown;
+@nav-tabs-active-link-hover-bg:           @spring-blue;
+@nav-tabs-active-link-hover-border-color: @spring-blue;
+@nav-tabs-border-color:                   @spring-blue;
 
-@pagination-active-bg:                    @spring-brown;
-@pagination-active-border:                @spring-brown;
-@table-border-color:                      @spring-brown;
+@pagination-active-bg:                    @spring-blue;
+@pagination-active-border:                @spring-blue;
+@table-border-color:                      @spring-blue;
 
 .table > thead > tr > th {
-  background-color: lighten(@spring-brown, 3%);
+  background-color: lighten(@spring-blue, 3%);
   color: @spring-light-grey;
 }
 
 .table-filter {
-  background-color: @spring-brown;
+  background-color: @spring-blue;
   padding: 9px 12px;
 }
 
@@ -79,8 +82,8 @@
   &:active,
   &.active,
   .open .dropdown-toggle& {
-    background-color: @spring-brown;
-    border-color: @spring-brown;
+    background-color: @spring-blue;
+    border-color: @spring-blue;
   }
 }
 
@@ -128,8 +131,8 @@ h1 {
 }
 
 .splash {
-  background: @spring-light-brown;
-  color: @spring-brown;
+  background: @spring-light-blue;
+  color: @spring-blue;
   display: none;
 }
 
@@ -199,12 +202,12 @@ table td.action-column {
 }
 
 .container-details-table th {
-  background-color: lighten(@spring-brown, 3%);
+  background-color: lighten(@spring-blue, 3%);
   color: @spring-light-grey;
 }
 
 .status-help-content-table td {
-  color: @spring-brown;
+  color: @spring-blue;
 }
 
 .alert-success {
@@ -234,7 +237,7 @@ table td.action-column {
 }
 
 hr {
-  border-top: 1px dotted @spring-brown;
+  border-top: 1px dotted @spring-blue;
 }
 
 @import "typography.less";

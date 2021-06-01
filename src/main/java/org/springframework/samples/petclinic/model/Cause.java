@@ -8,8 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -26,7 +27,8 @@ public class Cause extends BaseEntity{
 	private String description;
 	
 	@Column(name = "budget_target")	
-	@Min(value =  0)
+	@Positive
+    @NotNull
 	private Double budgetTarget;
 	
 	@Column(name = "act_non_prof_org")	
