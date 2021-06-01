@@ -46,9 +46,9 @@
     <table class="table-buttons">
         <tr>
             <td>
-            <sec:authorize access="hasAuthority('admin')">
+                <c:if test="hasRole('admin')">
 		        <a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'><spring:message code="add_vet" /></a>
-	        </sec:authorize>
+	        </c:if>
             </td>
             <td>
                 <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><spring:message code="view_xml" /></a>
